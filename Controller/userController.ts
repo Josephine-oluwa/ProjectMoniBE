@@ -128,48 +128,34 @@ export const readOneUser = async (req: Request, res: Response) => {
     }
 }
 
-// export const updateOneUser = async (req: Request, res: Response) => {
-//     try {
-//         const {userID} = req.params;
-
-//         const user:any = await userModel.findById(userID)
-
-//         if (user && req) {
-//             const {secure_url, public_id} : any = await streamUpload(req)
-
-            
-//          }
 
 
 
-//         return res.status(statusCode.CREATED).json({
-//             message: " viewing one user",
-//             data: user
-//         })
-//     } catch (error) {
-//         return res.status(statusCode.BAD_REQUEST).json({
-//             message: " cannot view all users",
-//             data: error
-//         })
-//     }
-// }
-
-
-export const updateOneUserName = async (req: Request, res: Response) => {
+export const updateOneUserProfile = async (req: Request, res: Response) => {
     try {
-        const userID = req.params
-        const userName = req.body
+        const {userID }= req.params
+        const {userName, level, bio}= req.body
         
         const user: any = await userModel.findById(userID)
 
         if (user) {
-            
+            const mainUser = await userModel.findByIdAndUpdate(userID,{
+                userName, level, bio
+            }, 
+            {new: true})
+            return res.status(statusCode.CREATED).json({
+                message: "you have successfully updated your Profile",
+                data: mainUser
+            })
         } else {
             return res.status(statusCode.BAD_REQUEST).json({
                 message: "unable to update user Name",
             })
         }
-    } catch (error) {
-        
+    } catch (error: any) {
+return res.status(statusCode.BAD_REQUEST).json({
+    message: "Error updating user",
+    data: error.message
+})
     }
 }
