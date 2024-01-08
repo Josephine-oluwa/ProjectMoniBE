@@ -32,6 +32,7 @@ const userModel = new mongoose.Schema<iUserData>(
     verify: {
         type: Boolean
     },
+    
     token: {
         type: String
     },

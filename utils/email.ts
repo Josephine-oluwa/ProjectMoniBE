@@ -1,4 +1,4 @@
-import nodemail from "nodemailer";
+import nodemailer from "nodemailer";
 import { google } from "googleapis";
 import path from "path";
 import ejs from "ejs";
@@ -24,7 +24,7 @@ const url: string = "https://codelab-hack.web.app";
 export const verifiedEmail = async (user: any) => {
   try {
     const accessToken: any = (await oAuth.getAccessToken()).token;
-    const transporter = nodemail.createTransport({
+    const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
         type: "OAuth2",

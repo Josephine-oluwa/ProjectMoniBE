@@ -1,12 +1,15 @@
 import express, { Application } from "express"
 import cors from "cors"
 import { connectDB } from "./utils/DataBase"
+import { mainApp } from "./mainApp";
 
 const port: number = 3344;
 const app: Application = express()
 
 app.use(express.json())
 app.use(cors())
+
+mainApp(app)
 
 const server = app.listen (port, () => {
     console.log()

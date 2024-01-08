@@ -73,7 +73,7 @@ if (user){
     }
 }
 
-export const realAllUser = async (req: Request, res: Response) => {
+export const readAllUser = async (req: Request, res: Response) => {
     try {
         const user = await userModel.find()
 
@@ -98,7 +98,7 @@ export const readUserByLevel = async (req: Request, res: Response) => {
         const user = await userModel.find({level})
 
         return res.status(statusCode.CREATED).json({
-            message: " viewing all users",
+            message: " viewing user level",
             data: user
         })
     } catch (error) {
