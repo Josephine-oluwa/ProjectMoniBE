@@ -91,11 +91,41 @@ export const createUnfollowing = async (req: any, res: Response) => {
 
        } 
 
-       return res.status(status)
+       return res.status(statusCode.CREATED).json({
+        message: "unFollowing"
+       })
 
 
     } catch (error) {
-        
+        return res.status(statusCode.BAD_REQUEST).json({
+            message: "Error",
+            data: error.message
+        })
     }
 }
+
+export const createUnfollow =  async (req: any, res: Response) => {
+    try {
+        const {userID, friendID}  = req.params 
+
+        const friend: any = await userModel.findById(userID)
+
+        if (friend?.follower.some((el: any) => el.userID === userID)) {
+            res.status(200).json({
+                message: "unFollow created"
+            })
+        } else {
+            res.status(200).json({
+                message: "unable to create"
+            })
+        }
+    } catch (error) {
+        return res.status(404).json({
+            message: "Error",
+            data: error
+        })
+    }
+}
+
+
 
